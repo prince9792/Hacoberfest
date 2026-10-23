@@ -1,0 +1,12 @@
+{
+  "name": "tool-doctor",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @tool-doctor/web",
+    "build": "npm run build --workspace @tool-doctor/web",
+    "typecheck": "npm run typecheck --workspace @tool-doctor/web"
+  }
+}
