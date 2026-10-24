@@ -3,6 +3,7 @@ import { LandingPage } from './components/LandingPage';
 import { Dashboard } from './components/Dashboard';
 import { AuthForm } from './components/AuthForm';
 import { AdminPage } from './components/AdminPage';
+import { AboutPage } from './components/AboutPage';
 
 export const App: React.FC = () => {
   const [currentPath, setCurrentPath] = useState<string>(() => {
@@ -46,6 +47,10 @@ export const App: React.FC = () => {
 
   if (currentPath === '/register') {
     return <AuthForm mode="register" onNavigate={navigate} />;
+  }
+
+  if (currentPath === '/about') {
+    return <AboutPage onNavigate={navigate} />;
   }
 
   if (currentPath === '/admin') {
