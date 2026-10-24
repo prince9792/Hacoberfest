@@ -1,21 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ambientAudio } from '../services/audio';
-import {
-  Github,
-  GitBranch,
-  Shield,
-  Activity,
-  CheckCircle2,
-  AlertTriangle,
-  ArrowRight,
-  Info,
-  X,
-  Layers,
-  Terminal,
-  Cpu,
-  RefreshCw,
-  Search,
-} from 'lucide-react';
 
 interface LandingPageProps {
   onNavigate: (path: string) => void;
@@ -29,7 +13,6 @@ const posterUrl =
 export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   const [soundOn, setSoundOn] = useState(false);
   const [audioUnavailable, setAudioUnavailable] = useState<string | null>(null);
-  const [showAboutModal, setShowAboutModal] = useState(false);
   const navToggle = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -166,7 +149,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               type="button"
               onClick={() => {
                 closeMobileMenu();
-                setShowAboutModal(true);
+                onNavigate('/about');
               }}
               className="bg-transparent border-0 cursor-pointer text-left p-0"
             >
@@ -251,11 +234,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
 
           <button
             type="button"
-            onClick={() => setShowAboutModal(true)}
+            onClick={() => onNavigate('/register')}
             className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/20 bg-white/10 text-xs text-white/80 hover:text-white hover:bg-white/20 transition cursor-pointer backdrop-blur-md"
           >
-            <Info size={13} />
-            <span>Project Information</span>
+            <span>Create account</span>
           </button>
         </div>
 
@@ -279,7 +261,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
 
       <footer className="landing-footer">
         <span id="foot1">Built for engineering teams who care about what they ship.</span>
-        <span id="foot2">Tool Doctor · Hacktoberfest Project</span>
+        <span id="foot2">
+          <button
+            type="button"
+            onClick={() => onNavigate('/about')}
+            className="border-0 bg-transparent p-0 text-inherit underline decoration-white/30 underline-offset-4 cursor-pointer"
+          >
+            About Tool Doctor
+          </button>
+          {' · '}Hacktoberfest Project
+        </span>
       </footer>
 
       <button
@@ -300,153 +291,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         </span>
       </button>
 
-      {/* ===================== ABOUT SECTION MODAL ===================== */}
-      {showAboutModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-fadeIn">
-          <div className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl border border-white/15 bg-[#141615] p-6 sm:p-8 text-white shadow-2xl">
-            {/* Modal Header */}
-            <div className="flex items-start justify-between border-b border-white/[0.08] pb-5">
-              <div className="flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-400/30 bg-emerald-400/10 text-emerald-300">
-                  <Activity size={22} />
-                </span>
-                <div>
-                  <h2 className="text-xl font-bold tracking-tight">About Tool Doctor</h2>
-                  <p className="text-xs text-white/50">Repository health monitoring, signal analysis & triage engine</p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowAboutModal(false)}
-                className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition cursor-pointer"
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            {/* Modal Body */}
-            <div className="mt-6 space-y-6 text-xs text-white/70 leading-relaxed font-sans">
-              <div>
-                <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                  <Layers size={16} className="text-emerald-400" />
-                  <span>Project Mission & Purpose</span>
-                </h3>
-                <p className="mt-2 text-white/60 leading-relaxed">
-                  Tool Doctor is an open-source repository monitoring and health diagnostics workspace conceived during Hacktoberfest. It solves a crucial engineering challenge: maintaining visibility into public open source dependencies, repositories, and critical tooling without having to manually review hundreds of repository pages or configure brittle webhook infrastructures.
-                </p>
-              </div>
-
-              {/* 3 Core Pillars: Analyse, Monitor, Manage */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/20 p-4">
-                  <div className="flex items-center gap-2 text-emerald-300 font-semibold text-xs">
-                    <Search size={14} />
-                    <span>1. Analyse</span>
-                  </div>
-                  <p className="mt-1.5 text-[11px] text-white/60 leading-relaxed">
-                    Instantly inspect availability, README documentation integrity, continuous integration (CI) workflows, release tag cadences, and open source licenses.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-amber-500/20 bg-amber-950/20 p-4">
-                  <div className="flex items-center gap-2 text-amber-300 font-semibold text-xs">
-                    <RefreshCw size={14} />
-                    <span>2. Monitor</span>
-                  </div>
-                  <p className="mt-1.5 text-[11px] text-white/60 leading-relaxed">
-                    Scheduled background polling cycle (1h to 24h) continuously monitors health scores and triggers alerts when vital project signals decay.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-blue-500/20 bg-blue-950/20 p-4">
-                  <div className="flex items-center gap-2 text-blue-300 font-semibold text-xs">
-                    <Shield size={14} />
-                    <span>3. Manage</span>
-                  </div>
-                  <p className="mt-1.5 text-[11px] text-white/60 leading-relaxed">
-                    Track the full lifecycle of findings, inspect timestamped evidence logs, triage critical warnings, and resolve findings once repaired.
-                  </p>
-                </div>
-              </div>
-
-              {/* Open Source Connections */}
-              <div>
-                <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                  <Cpu size={16} className="text-emerald-400" />
-                  <span>Open Source Platform Connections</span>
-                </h3>
-                <p className="mt-1.5 text-white/60">
-                  Tool Doctor supports connecting to and importing projects from every leading open source forge:
-                </p>
-                <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-                  <div className="rounded-xl border border-white/[0.08] bg-[#0c0e0d] p-3">
-                    <p className="font-semibold text-white flex items-center gap-1.5">
-                      <Github size={13} className="text-white" /> GitHub
-                    </p>
-                    <p className="mt-1 text-[10px] text-white/40">Full metadata, Actions CI, releases & README checks</p>
-                  </div>
-                  <div className="rounded-xl border border-white/[0.08] bg-[#0c0e0d] p-3">
-                    <p className="font-semibold text-white flex items-center gap-1.5">
-                      <GitBranch size={13} className="text-orange-400" /> GitLab
-                    </p>
-                    <p className="mt-1 text-[10px] text-white/40">Pipelines, release packages, groups & project trees</p>
-                  </div>
-                  <div className="rounded-xl border border-white/[0.08] bg-[#0c0e0d] p-3">
-                    <p className="font-semibold text-white flex items-center gap-1.5">
-                      <Terminal size={13} className="text-blue-400" /> Bitbucket
-                    </p>
-                    <p className="mt-1 text-[10px] text-white/40">Atlassian open source repos & pipelines signals</p>
-                  </div>
-                  <div className="rounded-xl border border-white/[0.08] bg-[#0c0e0d] p-3">
-                    <p className="font-semibold text-white flex items-center gap-1.5">
-                      <Layers size={13} className="text-teal-400" /> Codeberg
-                    </p>
-                    <p className="mt-1 text-[10px] text-white/40">Free & privacy-first open source forge projects</p>
-                  </div>
-                  <div className="rounded-xl border border-white/[0.08] bg-[#0c0e0d] p-3">
-                    <p className="font-semibold text-white flex items-center gap-1.5">
-                      <Activity size={13} className="text-emerald-400" /> Gitea / Forgejo
-                    </p>
-                    <p className="mt-1 text-[10px] text-white/40">Self-hosted & federated git repositories</p>
-                  </div>
-                  <div className="rounded-xl border border-white/[0.08] bg-[#0c0e0d] p-3">
-                    <p className="font-semibold text-white flex items-center gap-1.5">
-                      <CheckCircle2 size={13} className="text-purple-400" /> Sourcehut
-                    </p>
-                    <p className="mt-1 text-[10px] text-white/40">Lightweight modular software development suite</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Architecture & Security */}
-              <div className="rounded-2xl border border-white/[0.08] bg-[#0e100f] p-4">
-                <h4 className="font-semibold text-white text-xs">Security & Non-Invasive Architecture</h4>
-                <p className="mt-1 text-[11px] text-white/50 leading-relaxed">
-                  Tool Doctor operates strictly in read-only public inspection mode. It never requires write permissions, never clones complete source repositories, never executes untrusted code, and preserves strict workspace separation.
-                </p>
-              </div>
-            </div>
-
-            {/* Modal Footer */}
-            <div className="mt-6 pt-5 border-t border-white/[0.08] flex items-center justify-between">
-              <span className="text-[11px] text-white/40">Tool Doctor · Hacktoberfest Open Source</span>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAboutModal(false);
-                    onNavigate('/dashboard');
-                  }}
-                  className="px-4 py-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-black text-xs font-semibold transition cursor-pointer flex items-center gap-1.5"
-                >
-                  <span>Launch Workshop</span>
-                  <ArrowRight size={13} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
