@@ -1,0 +1,8 @@
+{
+  "name": "Tool Doctor",
+  "description": "Repository monitoring workspace and health dashboard. Review workspace signals and import public GitHub repositories.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
